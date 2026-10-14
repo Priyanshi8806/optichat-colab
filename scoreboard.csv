@@ -1,0 +1,66 @@
+section,model,case,passed,note
+1 component interpretation,qwen,coffee,True,coverage=100%
+1 component interpretation,llama,coffee,True,coverage=100%
+2 model illustration,qwen,coffee,True,entities=5
+2 model illustration,llama,coffee,True,entities=4
+3 IIS inference,qwen,coffee_infeasible,True,
+3 IIS inference,llama,coffee_infeasible,True,
+4 coordinator,qwen,User: What is this model about?,True,
+4 coordinator,llama,User: What is this model about?,True,
+4 coordinator,qwen,User: What does the 'need' parameter mean?,True,
+4 coordinator,llama,User: What does the 'need' parameter mean?,True,
+4 coordinator,qwen,User: By how much does total cost change if demand,True,
+4 coordinator,llama,User: By how much does total cost change if demand,True,
+4 coordinator,qwen,User: How many kg does S1 ship to roastery1 in the,True,
+4 coordinator,llama,User: How many kg does S1 ship to roastery1 in the,True,
+4 coordinator,qwen,User: Why not use only supplier S3?,True,
+4 coordinator,llama,User: Why not use only supplier S3?,True,
+4 coordinator,qwen,User: What if demand in the east region rises by 1,True,
+4 coordinator,llama,User: What if demand in the east region rises by 1,False,"{'agent_name': 'Engineer', 'task': 'run sensitivity analysis to see how other variables change when east demand rises by"
+5 explainer (grounded numbers),qwen,plant what-if,True,ungrounded=[]
+5 explainer (grounded numbers),llama,plant what-if,True,ungrounded=[]
+6 syntax reminder,qwen,feasibility_restoration,True,
+6 syntax reminder,llama,feasibility_restoration,True,
+6 syntax reminder,qwen,components_retrieval,True,
+6 syntax reminder,llama,components_retrieval,True,
+6 syntax reminder,qwen,sensitivity_analysis,True,
+6 syntax reminder,llama,sensitivity_analysis,False,"{'function': 'sensitivity_analysis', 'component': ""demand[D='west']""}"
+6 syntax reminder,qwen,evaluate_modification,True,
+6 syntax reminder,llama,evaluate_modification,False,"{'function': 'sensitivity_analysis', 'component': 'demand'}"
+6 syntax reminder,qwen,external_tools,True,
+6 syntax reminder,llama,external_tools,True,
+7 operator + tool,qwen,feasibility_restoration,True,
+7 operator + tool,llama,feasibility_restoration,False,exception KeyError
+7 operator + tool,qwen,components_retrieval,True,
+7 operator + tool,llama,components_retrieval,True,
+7 operator + tool,qwen,sensitivity_analysis,False,"{'function': 'sensitivity_analysis', 'args': {'component': 'total_cost', 'index': ['west']}}"
+7 operator + tool,llama,sensitivity_analysis,False,"{'function': 'sensitivity_analysis', 'args': {'component': 'total_cost', 'index': [['west']]}}"
+7 operator + tool,qwen,evaluate_modification,True,
+7 operator + tool,llama,evaluate_modification,False,exception KeyError
+8 code reminder (scaffold),-,assemble+exec,True,
+9 programmer (in-prompt),qwen,ex1,True,got=2760.0 gt=2760.0
+9 programmer (in-prompt),llama,ex1,True,got=2760.0 gt=2760.0
+9 programmer (in-prompt),qwen,ex2,True,got=12000.0 gt=12000.0
+9 programmer (in-prompt),llama,ex2,True,got=12000.0 gt=12000.0
+9 programmer (held-out),qwen,h1,False,got=2575.0 gt=None
+9 programmer (held-out),llama,h1,False,got=2760.0 gt=None
+9 programmer (held-out),qwen,h2,True,got=2875.0 gt=2875.0
+9 programmer (held-out),llama,h2,False,"KeyError: ""Index '('S1', 'roastery3')' is not valid for indexed component 'z'"""
+9 programmer (held-out),qwen,h3,True,got=12600.0 gt=12600.0
+9 programmer (held-out),llama,h3,True,got=12600.0 gt=12600.0
+9 programmer (held-out),qwen,h4,False,got=None gt=11800.0
+9 programmer (held-out),llama,h4,False,AttributeError: 'ConcreteModel' object has no attribute 'prod'
+10 evaluator,qwen,good code,True,
+10 evaluator,llama,good code,False,"{'decision': 'reject', 'comment': ""The code does not answer the user's query because it simply sets the variable z['S1',"
+10 evaluator,qwen,buggy code,True,
+10 evaluator,llama,buggy code,True,
+10 evaluator,qwen,acceptably infeasible,True,
+10 evaluator,llama,acceptably infeasible,True,
+11 full loop,qwen,feasibility_restoration,True,
+11 full loop,llama,feasibility_restoration,False,
+11 full loop,qwen,evaluate_modification,True,
+11 full loop,llama,evaluate_modification,False,
+11 full loop,qwen,sensitivity_analysis,False,
+11 full loop,llama,sensitivity_analysis,False,
+11 full loop,qwen,external_tools,False,
+11 full loop,llama,external_tools,False,
