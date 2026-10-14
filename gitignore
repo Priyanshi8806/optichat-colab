@@ -1,8 +1,0 @@
-.ipynb_checkpoints/
-__pycache__/
-*.pyc
-scoreboard.csv
-.env
-*.token
-hf_token*
-.DS_Store
